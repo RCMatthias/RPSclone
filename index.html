@@ -2,12 +2,34 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>JS Test 1</title>
+        <link href="/styles.css" rel="stylesheet" />
+        <title>Rock Paper Scissors UI </title>
+        <script defer type ="text/javascript" src="/game2.js"></script>
+
     </head>
 <body>
 
-<script type ="text/javascript" src="/game.js">
 
-</script>
+
+
+<div class="gameboard"> 
+    <p>Player Score:</p><p id="pScore"> 0</p>
+    <p>Computer Score: </p><p id="cScore"> 0</p>
+</div>
+
+<div class="winner"><p>Winner:</p> <p id="winner"> N/A </p> </div>
+
+<div class="buttons">
+    <button id="Foot"> Foot    </button>
+    <button id="Nuke"> Nuclear Bomb </button>
+    <button id="Cock"> Cockroach </button>
+</div>
+<div style="display:none" class="play-again">
+    <button id="play-again" >Play again </button>
+</div>
+
+<div id="gameOutcome">Game </div>
+
+
 </body>
 </html>
