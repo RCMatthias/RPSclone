@@ -1,21 +1,24 @@
 let computerScore = 0;
 let playerScore = 0;
-const button = document.querySelectorAll("button");
 
 
 function addGlobalEventListener(type, selector, callback) {
     document.addEventListener(type, e => {
+        if (playerScore === 5 || computerScore === 5){
+            return;
+        }
         if (e.target.matches(selector)) callback(e)
     })
 }
 
+ 
 //compChoice gets randomized and stored into computerSelection
 const getComputerChoice = () => {
     let randomNumber = Math.floor(Math.random() * 3);
         switch (randomNumber) {
         case 0: 
             return "foot";
-            break;
+            break;  
         case 1:
             return "nuclear bomb";
             break;
@@ -30,10 +33,9 @@ const getComputerChoice = () => {
 const playRound = (playerSelection, computerSelection) => {
     /* let wins = checkWins(); */
     var computerSelection = getComputerChoice();
-    checkWinner();
+
     displayWinner();
     displayPlayAgain();
-
     if ((playerScore < 5) || (computerScore < 5)){
         if (playerSelection === computerSelection){
             return "It's a draw!";
@@ -43,53 +45,41 @@ const playRound = (playerSelection, computerSelection) => {
         } else {
             playerScore++;
             return "You win!"
-        }
+        }; 
+
     }};
 
-        /* 
-    } else if (playerScore === 5){
-        document.getElementById("winner").textContent = "You win";
-    } else if (computerScore === 5){
-        document.getElementById("winner").textContent = "Computer win";
-
-    } */
+ 
 
 //Disable buttons after any score reaches 5
-const disableButton = () => {
-    button.disabled = true;
-}; 
-
-const checkWinner = () => {
-    if ((playerScore===5) || (computerScore===5)){
-        button.addEventListener('click', disableButton());
-    }
-};
-
 
 //Check who has a score of 5 and print winner
 const displayWinner = () => {
+    if (playerScore === 4){
+        document.querySelector(".winner").textContent = "You have dominated the computational unit.";
+        document.querySelector(".winner").style.color = "Green";
 
-    if (playerScore === 5){
-        document.getElementById("winner").textContent = "You win";
-        displayPlayAgain();
+    } else if (computerScore===4){
+        document.querySelector(".winner").textContent = "COMPUTERIZED ANNIHILATION OF HOMO SAPIENS ACHIEVED";
+        document.querySelector(".winner").style.color = "Red";
 
-    } else if (computerScore===5){
-        document.getElementById("winner").textContent = "Computer wins";
-        displayPlayAgain();
-    } else if (playerScore < 5 || computerScore < 5) {
-        document.getElementById("winner").textContent = "First to reach 5 wins.";
+    } else if (playerScore < 4 || computerScore < 4) {
+        document.querySelector(".winner").textContent = "First to reach 5 wins.";
     }
 }
-
 
 //Display play again button
 const displayPlayAgain = () => {
-    if ((playerScore ===5) || (computerScore===5) ){
-            document.getElementById("play-again").style.display = "inline";
-    }
-}
-   
+    if ((playerScore == 4 || (computerScore == 4 ))){
+            document.getElementById("play-again").style.visibility = "visible";
+    };
 
+}
+
+//functionality of Play Again Button
+const resetGame = () => {
+    window.location.reload();
+}
 
 //Player clicks a button, choice gets propagated into playRound function
 addGlobalEventListener("click", "#Foot", e => {
@@ -112,6 +102,9 @@ addGlobalEventListener("click", "#Cock", e => {
         document.getElementById("cScore").textContent = computerScore;
 });
 
+addGlobalEventListener("click", "#resetbtn", e => {
+    resetGame();
+});
 
 /* const winner = () => {
     if (playerScore === "5") {

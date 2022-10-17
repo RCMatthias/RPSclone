@@ -21,7 +21,16 @@ button{
         padding:9px 23px;
         text-decoration:none;
         text-shadow:0px -1px 0px #7a2a1d;
+        
     }
+img{
+    max-width: 10%;
+    max-height: 10%;
+    min-height: 100%;
+    min-width: 100%;
+    height: 200px;
+    width: fit-content;
+}
 
 button:hover {
     background: #e02c26;
@@ -41,7 +50,7 @@ button:active {
 div.play-again{
     display: disabled;
 }
-div.buttons{
+div.buttonsMain{
 align-items: center;
     display: flex;
     flex-direction: row;
@@ -49,7 +58,7 @@ align-items: center;
 }
 
 
-div.gameboard, div#gameOutcome, div.winner{
+div.gameboard, div#gameOutcome, div.winnerTop, div.play-again{
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -58,5 +67,4 @@ div.gameboard, div#gameOutcome, div.winner{
     font: 500;
     padding: 2rem;
 }
-
 

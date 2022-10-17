@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <link href="/styles.css" rel="stylesheet" />
         <title>Rock Paper Scissors UI </title>
-        <script defer type ="text/javascript" src="/game.js"></script>
+        <script  type ="text/javascript" src="/game2.js" defer></script>
 
     </head>
 <body>
@@ -17,15 +17,23 @@
     <p>Computer Score: </p><p id="cScore"> 0</p>
 </div>
 
-<div class="winner"><p>Winner:</p> <p id="winner"> N/A </p> </div>
+<div class="winnerTop"><p>Winner:</p> 
 
-<div class="buttons">
-    <button id="Foot"> Foot    </button>
-    <button id="Nuke"> Nuclear Bomb </button>
-    <button id="Cock"> Cockroach </button>
+<div><p class="winner"></p> </div>
+
 </div>
-<div style="display:none" class="play-again">
-    <button id="play-again" >Play again </button>
+
+
+<div class="buttonsMain">
+    <div id="Foot"><button id="Foot"> <img src ="/images/foot.jpg" id = "Foot"> Foot    </button> </div>
+    <div id="Nuke"><button id="Nuke"> <img src ="/images/nuke.jpg" id = "Nuke"> Nuclear Bomb </button> </div>
+    <div class="Cock"><button id="Cock"> <img src ="/images/cockroach.jpg" id ="Cock"> Cockroach </button> </div>
+</div>
+
+
+
+<div id= "play-again" style="visibility: hidden;" class="play-again">
+    <button id="resetbtn"> Play again </button>
 </div>
 
 <div id="gameOutcome">Game </div>
