@@ -1,28 +1,15 @@
-let playerScore = 0;
 let computerScore = 0;
-const buttons = document.querySelectorAll('input')
-const playerOptionBtn = document.querySelector('div.playerOptionBtns');
-const computerSelection = getComputerChoice();
+let playerScore = 0;
+const button = document.querySelectorAll("button");
 
-// user clicks
-// Player clicks a button and selected value is stored for the game
-const playerSelection = () => {
-    const footButton = document.querySelector('#Foot');
-    const nukeButton = document.querySelector('#Nuke');
-    const cockButton = document.querySelector('#Cock');
 
-    footButton.addEventListener('click',() =>{
-        if (button.id = "F"){ 
-        let playerSelection = "foot";
-        playRound(playerSelection, computerSelection);
-    };
-})
+function addGlobalEventListener(type, selector, callback) {
+    document.addEventListener(type, e => {
+        if (e.target.matches(selector)) callback(e)
+    })
+}
 
-// ->game Starts 
-    //round plays 
-        // it compares playerSelection to computer choice 
-            // after 5 rounds in total the game stops and winner is declared 
-
+//compChoice gets randomized and stored into computerSelection
 const getComputerChoice = () => {
     let randomNumber = Math.floor(Math.random() * 3);
         switch (randomNumber) {
@@ -37,60 +24,131 @@ const getComputerChoice = () => {
             break;
     } 
 }
-console.log(getComputerChoice())
 
 
 //Play the compChoice vs playerChoice through the triangle of RPS
 const playRound = (playerSelection, computerSelection) => {
-    if (playerSelection === computerSelection){
-        return "It's a draw!";
-    } else if ((playerSelection === "foot" && computerSelection === "nuclear bomb") || (playerSelection === "nuclear bomb" && computerSelection === "cockroach") || (playerSelection === "cockroach" && computerSelection === "foot")){
-        computerScore++;
-        return "Computer wins!"
-    } else {
-        playerScore++;
-        return "You win!"
+    /* let wins = checkWins(); */
+    var computerSelection = getComputerChoice();
+    checkWinner();
+    displayWinner();
+    displayPlayAgain();
+
+    if ((playerScore < 5) || (computerScore < 5)){
+        if (playerSelection === computerSelection){
+            return "It's a draw!";
+        } else if ((playerSelection === "foot" && computerSelection === "nuclear bomb") || (playerSelection === "nuclear bomb" && computerSelection === "cockroach") || (playerSelection === "cockroach" && computerSelection === "foot")){
+            computerScore++;
+            return "Computer wins!"
+        } else {
+            playerScore++;
+            return "You win!"
+        }
+    }};
+
+        /* 
+    } else if (playerScore === 5){
+        document.getElementById("winner").textContent = "You win";
+    } else if (computerScore === 5){
+        document.getElementById("winner").textContent = "Computer win";
+
+    } */
+
+//Disable buttons after any score reaches 5
+const disableButton = () => {
+    button.disabled = true;
+}; 
+
+const checkWinner = () => {
+    if ((playerScore===5) || (computerScore===5)){
+        button.addEventListener('click', disableButton());
+    }
+};
+
+
+//Check who has a score of 5 and print winner
+const displayWinner = () => {
+
+    if (playerScore === 5){
+        document.getElementById("winner").textContent = "You win";
+        displayPlayAgain();
+
+    } else if (computerScore===5){
+        document.getElementById("winner").textContent = "Computer wins";
+        displayPlayAgain();
+    } else if (playerScore < 5 || computerScore < 5) {
+        document.getElementById("winner").textContent = "First to reach 5 wins.";
     }
 }
 
-function getPlayerChoice(e) {
-    let playerSelection=(e.target.id);
-    playerChoice = e.target.textContent;
-    playRound(playerSelection, getComputerChoice());
+
+//Display play again button
+const displayPlayAgain = () => {
+    if ((playerScore ===5) || (computerScore===5) ){
+            document.getElementById("play-again").style.display = "inline";
+    }
 }
-
-const computerSelection = getComputerChoice();
-
-// console.log(playRound(playerSelection, computerSelection));
-
-console.log(computerScore, playerScore) ;
+   
 
 
+//Player clicks a button, choice gets propagated into playRound function
+addGlobalEventListener("click", "#Foot", e => {
+    let roundResult = playRound("foot", ) ; 
+        document.getElementById("gameOutcome").textContent = roundResult;
+        document.getElementById("pScore").textContent = playerScore;
+        document.getElementById("cScore").textContent = computerScore;
+});
+
+addGlobalEventListener("click", "#Nuke", e => {
+    let roundResult = playRound("nuclear bomb", ) ;
+        document.getElementById("gameOutcome").textContent = roundResult;
+        document.getElementById("pScore").textContent = playerScore;
+        document.getElementById("cScore").textContent = computerScore;
+});
+addGlobalEventListener("click", "#Cock", e => {
+    let roundResult = playRound("cockroach", );
+        document.getElementById("gameOutcome").textContent = roundResult;
+        document.getElementById("pScore").textContent = playerScore;
+        document.getElementById("cScore").textContent = computerScore;
+});
 
 
-// The Game
-const game = () => {
-    // Play 5 rounds & stop 
-    /* for (let i = 0; i < 5; i++){
-        playRound()
-    } */
-    
-    let computerSelection = getComputerChoice();
-    let roundResult = playRound (playerSelection, computerSelection);
+/* const winner = () => {
+    if (playerScore === "5") {
+        return "You have dominated the computational unit! "
+    }
+    if (computerScore === "5") {
+        return "Computerized Annihiliation Achieved"
+    }
+ };
+console.log(winner()); */
 
 
-    if (playerScore === computerScore){
-    return "It's a draw!"
-    };
 
-    if (playerScore >= 5 && computerScore <5) {
-        return "Game over. You win!";
-    } else if (playerScore <5 && computerScore >= 5) {
-        return "Game over. You lose!"
-    };
+//check wins: count and store the total amount of wins  
+//(then reference this in the playRound; if higher than 5 stop playing)
+/* document.getElementById("#winner").textContent = checkWins; 
+const wins = checkWins();
+function checkWins = () => {
+  //  first score to reach 5 = winner
+
+if (playerScore === "5") {
+    return "You have dominated the computational unit! "
 }
+if (computerScore === "5") {
+    return "Computerized Annihiliation Achieved"
+}
+}
+ */
 
 
 
-console.log(game);
-/* console.log(computerScore, playerScore) */
+
+/* 
+let startRound = document.createElement('div');
+const updatedResult = document.createElement('div');
+const updatedScores = document.createElement('div');
+
+let playerScore = 0;
+let computerscore = 0;
+let drawScore = 0; */ 
